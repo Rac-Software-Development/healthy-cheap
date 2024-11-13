@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .recipe, .comment {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .comment {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deel je recepten</h1>
+    <form id="recipeForm">
+        <textarea id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
+        <button type="submit">Indienen</button>
+    </form>
+    <h2>Recepten</h2>
+    <div id="recipes"></div>
+
+    <script>
+        document.getElementById('recipeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const recipeText = document.getElementById('recipeText').value;
+            if (recipeText) {
+                const recipeDiv = document.createElement('div');
+                recipeDiv.className = 'recipe';
+                recipeDiv.innerHTML = `<p>${recipeText}</p><button onclick="addComment(this)">Reageer</button><div class="comments"></div>`;
+                document.getElementById('recipes').appendChild(recipeDiv);
+                document.getElementById('recipeText').value = '';
+            }
+        });
+
+        function addComment(button) {
+            const commentText = prompt('Schrijf je reactie:');
+            if (commentText) {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerText = commentText;
+                button.nextElementSibling.appendChild(commentDiv);
+            }
+        }
+    </script>
+</body>
+</html>
