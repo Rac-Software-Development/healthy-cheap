@@ -3,10 +3,10 @@ from flask import Flask, render_template
 app = Flask(__name__, template_folder="html")
 
 
-from flask import redirect, request, render_template, Flask
+from flask import redirect, request, render_template
 
 import os
-
+from dotenv import load_dotenv, dotenv_values
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder="html")
@@ -19,6 +19,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.app_context().push()
 db = SQLAlchemy()
 db.init_app(app)
+config = dotenv_values(".env")
+
+load_dotenv()
 
 
 user_key = os.getenv("user_key")
@@ -33,7 +36,6 @@ class users(db.Model):
     def __init__(self, user_name, pass_word):
         self.user_name = user_name
         self.pass_word = pass_word
-        return f"{self.user_name},{ self.pass_word}"
 
 
 @app.route("/")
@@ -61,4 +63,5 @@ def register():
 
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(debug=True)
