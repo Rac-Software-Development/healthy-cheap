@@ -62,6 +62,15 @@ def register():
         )
 
 
+@app.route("/forum", methods=["GET", "POST"])
+def forum():
+    forum_page = request.form.get("recipeForm")
+    if request.method == "POST":
+        return render_template("forum.html", forum_page=forum_page)
+    else:
+        return render_template("forum.html", forum_page=forum_page)
+
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
