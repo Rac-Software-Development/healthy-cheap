@@ -62,6 +62,20 @@ def register():
         )
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    login_name = request.form.get("login_name")
+    login_password = request.form.get("password")
+    if request.method == "POST":
+        return render_template(
+            "login.html", login_name=login_name, login_password=login_password
+        )
+    else:
+        return render_template(
+            "login.html", login_name=login_name, login_password=login_password
+        )
+
+
 @app.route("/forum", methods=["GET", "POST"])
 def forum():
     forum_page = request.form.get("recipeForm")
