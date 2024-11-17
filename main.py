@@ -66,14 +66,24 @@ def register():
 def login():
     login_name = request.form.get("login_name")
     login_password = request.form.get("password")
+
     if request.method == "POST":
-        return render_template(
-            "login.html", login_name=login_name, login_password=login_password
-        )
+        if check_user(login_name, login_name):
+
+            return redirect("/forum")
     else:
         return render_template(
             "login.html", login_name=login_name, login_password=login_password
         )
+
+
+def check_user(username, password):
+    for i in db.session.query(username, password):
+        if username == i[0] and password == i[1]:
+
+            return True
+        else:
+            False
 
 
 @app.route("/forum", methods=["GET", "POST"])
