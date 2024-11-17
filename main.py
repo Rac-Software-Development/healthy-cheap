@@ -68,22 +68,23 @@ def login():
     login_password = request.form.get("password")
 
     if request.method == "POST":
-        if check_user(login_name, login_name):
+        if check_user(login_name, login_password):
 
             return redirect("/forum")
-    else:
-        return render_template(
-            "login.html", login_name=login_name, login_password=login_password
-        )
+
+    return render_template(
+        "login.html", login_name=login_name, login_password=login_password
+    )
 
 
 def check_user(username, password):
-    for i in db.session.query(username, password):
-        if username == i[0] and password == i[1]:
+    for i in db.session.query(users):
+        print(i.user_name, i.pass_word)
+        if i.user_name == username and i.pass_word == password:
+            print(i.user_name, i.pass_word)
 
             return True
-        else:
-            False
+    return False
 
 
 @app.route("/forum", methods=["GET", "POST"])
