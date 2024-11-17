@@ -1,9 +1,9 @@
 body {
-  background-color: rgb(109, 214, 243);
+  background-color: rgb(68, 47, 183);
 }
 
 h1 ,h3{
-  color: rgba(231, 236, 87, 0.928);
+  color: rgba(13, 196, 77, 0.928);
   text-align: center;
   font-family: verdana;
 }
@@ -23,7 +23,7 @@ p{
 button {
   display: block;
   margin: auto;
-  background-color:#beeb4b;
+  background-color:#18c226;
   cursor: pointer;
 
   border: rgb(15, 173, 59);
