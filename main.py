@@ -96,6 +96,12 @@ def forum():
         return render_template("forum.html", forum_page=forum_page)
 
 
+@app.route("/kaart", methods=["GET", "POST"])
+def map():
+
+    return render_template("kaart.html")
+
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)

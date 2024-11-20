@@ -1,36 +1,99 @@
 body {
-  background-color: rgb(68, 47, 183);
+  background-color: rgb(131, 230, 101);
 }
 
-h1 ,h3{
-  color: rgba(13, 196, 77, 0.928);
+h1,h3 {
+  color: rgb(97, 226, 222);
+  text-align: left;
+  font-family: verdana;
+  font-size: 20px;
+  position: absolute;
+  left: 20;
+
+}
+.h1-login{
+  color: rgb(216, 101, 29);
   text-align: center;
   font-family: verdana;
+  font-size: 20px;
+  position: absolute;
+  left: 525;
+
 }
 
 p {
   font-family: verdana;
-  font-size: 20px;
+  font-size: 15px;
+  justify-content: space-between;
+  
 }
 
 
 p{
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: rgba(8, 190, 51, 0.928)
+  color: rgb(23, 54, 3)
 }
-
-button {
-  display: block;
-  margin: auto;
-  background-color:#18c226;
+.buttons-home{
+  float: left;
+  background-color: aqua;
+  margin-left: 0px;
   cursor: pointer;
+  border-color: aqua;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 
+}
+.btn-group {
+  display: flex;
+  margin: auto;
+ 
+  padding-left: 105px;
+  margin-bottom: 5px;
+  max-width: 300px;
   border: rgb(15, 173, 59);
   color: rgb(9, 3, 3);
-  padding: 15px 32px;
+  padding: 15px 400px;
+  
+  top:0; 
+  position: absolute;
+  width: 100%;
+  background-color: orange;
+  border-bottom: 8px solid yellow;
+  justify-content: space-between;
   
  
+}
+
+
+
+.second-bar{
+  display: flex;
+  float: left;
+  background-color: rgb(122, 213, 104);
+  
+  margin-bottom: 5px;
+  max-width: 300px;
+  
+  padding: 10px 495px;
+  border: rgb(136, 100, 208);
+  top:70px; 
+  position:fixed;
+  
+  justify-content: left;
+}
+
+.login-button{
+  display: flex;
+  margin: auto;
+
+  background-color: #beeb4b;
+  cursor: pointer;
+  text-align: center;
+  padding: 15px 32px;
+  border: rgb(15, 173, 59);
 }
 
 .my-button {
@@ -38,13 +101,17 @@ button {
   margin: auto;
   background-color: #beeb4b;
   cursor: pointer;
-
+  float: right;
+  position: relative;
+  right: 0;
   border: rgb(15, 173, 59);
   color: rgb(8, 2, 2);
   padding: 15px 32px;
+  left: auto;
   
  
 }
+
 
 input, select {
   width: 30%;
@@ -63,4 +130,13 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.image{
+ 
+  position: absolute;
+  left: 0px;
+  top: 140px;
+ 
+
 }
