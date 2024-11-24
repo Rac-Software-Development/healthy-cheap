@@ -1,0 +1,33 @@
+textarea{
+  margin-left: auto;
+  position: absolute;
+  left: 700px;
+  padding-right: 30px;
+  top: 70px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: rgb(122, 213, 104);
+}
+.recipe, .comment {
+  border: 1px solid ;
+  padding: 15px;
+  margin-bottom: 10px;
+ 
+}
+.comment {
+  margin-left: 20px;
+}
+
+button{
+  margin: auto;
+  position: absolute;
+  right:  100px;
+  background-color: #e67c13;
+  padding: 15px;
+  border: #e67c13;
+  border-radius: 25px;
+  top: 70px;
+}
