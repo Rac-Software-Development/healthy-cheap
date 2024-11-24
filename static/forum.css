@@ -12,10 +12,13 @@ body {
   background-color: rgb(122, 213, 104);
 }
 .recipe, .comment {
-  border: 1px solid ;
-  padding: 15px;
+  
+  padding: 20px;
   margin-bottom: 10px;
  
+}
+.recipe:first-child {
+  margin-top: none;
 }
 .comment {
   margin-left: 20px;
@@ -37,13 +40,17 @@ body {
   padding: 15px;
   border: #e67c13;
   border-radius: 25px;
+  margin-bottom: 20px;
 }
 
-div{
+.div{
   background-color: aqua;
   border-radius: 25px;
+  
 }
 .div-react{
-  background-color:#e67c13;
+  padding: 15px;
+  background-color:rgb(122, 213, 104);
   border-radius: 25px;
+  margin-bottom: 15px;
 }
