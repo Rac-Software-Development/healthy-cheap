@@ -13,8 +13,10 @@ body {
 }
 .recipe, .comment {
   
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 10px;
+  background-color: rgb(206, 238, 110);
+  border-radius: 25px;
  
 }
 .recipe:first-child {
@@ -43,11 +45,8 @@ body {
   margin-bottom: 20px;
 }
 
-.div{
-  background-color: aqua;
-  border-radius: 25px;
-  
-}
+
+
 .div-react{
   padding: 15px;
   background-color:rgb(122, 213, 104);
