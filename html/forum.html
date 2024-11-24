@@ -13,10 +13,10 @@
     <h1>Deel je recepten</h1>
     <form id="recipeForm" method="post">
         <textarea id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
-        <button type="submit">Indienen</button>
+        <button class="post-button" type="submit">Indienen</button>
     </form>
     <h2>Recepten</h2>
-    <div id="recipes"></div>
+    <div id="recipes" class="div"></div>
 
     <script>
         document.getElementById('recipeForm').addEventListener('submit', function(event) {
@@ -25,7 +25,7 @@
             if (recipeText) {
                 const recipeDiv = document.createElement('div');
                 recipeDiv.className = 'recipe';
-                recipeDiv.innerHTML = `<p>${recipeText}</p><button onclick="addComment(this)">Reageer</button><div class="comments"></div>`;
+                recipeDiv.innerHTML = `<p>${recipeText}</p><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div>`;
                 document.getElementById('recipes').appendChild(recipeDiv);
                 document.getElementById('recipeText').value = '';
             }

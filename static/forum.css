@@ -21,7 +21,7 @@ body {
   margin-left: 20px;
 }
 
-button{
+.post-button{
   margin: auto;
   position: absolute;
   right:  100px;
@@ -30,4 +30,20 @@ button{
   border: #e67c13;
   border-radius: 25px;
   top: 70px;
+}
+
+.react-button{
+  background-color: #e67c13;
+  padding: 15px;
+  border: #e67c13;
+  border-radius: 25px;
+}
+
+div{
+  background-color: aqua;
+  border-radius: 25px;
+}
+.div-react{
+  background-color:#e67c13;
+  border-radius: 25px;
 }
