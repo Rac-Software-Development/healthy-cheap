@@ -1,21 +1,25 @@
-from flask import Flask, render_template
+import builtins
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__, template_folder="html")
 
-
+from PIL import Image
 from flask import redirect, request, render_template
-
+from werkzeug.utils import secure_filename
 import os
 from dotenv import load_dotenv, dotenv_values
 from flask_sqlalchemy import SQLAlchemy
+import shutil
+import requests
 
 app = Flask(__name__, template_folder="html")
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "sqlite:////Users/Nizar/OneDrive - Hogeschool Rotterdam/healthy-cheap/database2.db"
+    "sqlite:////Users/Nizar/OneDrive - Hogeschool Rotterdam/healthy-cheap2/healthy-cheap/database2.db"
+    
 )
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+app.config["IMAGES"] = "/Users/Nizar/OneDrive - Hogeschool Rotterdam/healthy-cheap2/healthy-cheap/static/images/"
 app.app_context().push()
 db = SQLAlchemy()
 db.init_app(app)
@@ -49,8 +53,9 @@ def register():
     username = request.form.get("username")
     password = request.form.get("password")
     if request.method == "POST":
-
+        
         user = users(user_name=username, pass_word=password)
+        
         db.session.add(user)
         db.session.commit()
         return render_template(
@@ -102,6 +107,37 @@ def map():
     return render_template("kaart.html")
 
 
+@app.route("/upload_image", methods=["GET", "POST"])
+def upload_image():
+    
+    if request.method == "POST":
+        print(request.files)
+        image_name = request.files['file']
+        if image_name.filename == "":
+            print("no filename")
+            return redirect("/register")
+        
+        filename = image_name.filename
+        
+        
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        
+        
+        image_name.save(os.path.join(app.config["IMAGES"]+filename),30 )
+        
+        print("image is saved")
+        return redirect(f"/display_image/{filename}")
+     
+    return redirect("/register")
+
+
+@app.route("/display_image/<filename>", methods=["GET", "POST"])
+def display_image(filename):
+       
+        return redirect(url_for('static', filename='/images/' + filename))
+
+
 if __name__ == "__main__":
+
     db.create_all()
     app.run(debug=True)

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>register</title>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 
@@ -19,12 +19,30 @@
     <input type="password" name="password" >
     <br>
 
-    <button type="submit" value="register">registreer</button>
+    <button class="my-button" type="submit" value="register">registreer</button>
+    <br>
+    
 
   </form>
   <form action="/login">
-    <button>go to login</button>
+    <button class="my-button">go to login</button>
   </form>
+
+
+  <form action="/upload_image" method="post" enctype="multipart/form-data">
+    <input type="file" name="file"  class="my-button">
+    <input type="submit" class="my-button" id="file" name="file">
+    {% if filename %}
+  <div>
+    <img src="{{url_for('static', filename='/static/images' + filename )}}" alt="">
+  </div>
+
+  {% endif %}
+
+  </form>
+
+
+ 
 </body>
 
 </html>
