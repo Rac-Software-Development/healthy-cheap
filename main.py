@@ -134,7 +134,7 @@ def upload_image():
 @app.route("/display_image/<filename>", methods=["GET", "POST"])
 def display_image(filename):
        
-        return redirect(url_for('static', filename='/images/' + filename))
+        return render_template("forum.html", filename =filename)
 
 
 if __name__ == "__main__":

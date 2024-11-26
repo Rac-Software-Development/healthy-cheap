@@ -16,6 +16,14 @@
         <button class="post-button" type="submit">Indienen</button>
     </form>
     <h2>Recepten</h2>
+      
+
+  {% if filename %}
+  <div>
+    <img src="/static/images/{{filename}}" alt="" width="70" height="70">
+  </div>
+
+  {% endif %}
     <div id="recipes" class="div"></div><br>
 
     <script>
