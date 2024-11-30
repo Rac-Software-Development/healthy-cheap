@@ -44,6 +44,9 @@ class users(db.Model):
         self.user_name = user_name
         self.pass_word = pass_word
         self.img = img
+    
+    def __repr__(self):
+        return str(self.img)
 
 
 
@@ -58,6 +61,7 @@ def register():
     username = request.form.get("username")
     password = request.form.get("password")
     image = request.form.get("image")
+   
     if request.method == "POST":
         
         user = users(user_name=username, pass_word=password, img =image)
@@ -84,7 +88,7 @@ def register():
     if request.method == "GET":
         
         return render_template(
-            "registration.html", user_name=username, pass_word=password,img =image
+            "registration.html", user_name=username, pass_word=password,img=image
         )
 
 
@@ -93,6 +97,8 @@ def login():
     login_name = request.form.get("login_name")
     login_password = request.form.get("password")
     session["loginname"] = login_name
+ 
+    
     if request.method == "POST":
         if check_user(login_name, login_password):
 
@@ -107,7 +113,9 @@ def check_user(username, password):
     for i in db.session.query(users):
         print(i.user_name, i.pass_word)
         if i.user_name == username and i.pass_word == password:
-            print(i.user_name, i.pass_word)
+            
+            session["image"] = i.img
+            print(i.img)
             
             return True
     return False
@@ -120,8 +128,10 @@ def forum():
 
         return render_template("forum.html", forum_page=forum_page)
     else:
+        
+        image = session["image"]
         loginname = session["loginname"]
-        return render_template("forum.html", forum_page=forum_page, loginname =loginname)
+        return render_template("forum.html", forum_page=forum_page, loginname =loginname, image = image)
 
 
 @app.route("/kaart", methods=["GET", "POST"])
