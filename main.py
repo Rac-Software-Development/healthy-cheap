@@ -1,5 +1,5 @@
 import builtins
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, session, url_for
 
 app = Flask(__name__, template_folder="html")
 
@@ -24,6 +24,8 @@ app.app_context().push()
 db = SQLAlchemy()
 db.init_app(app)
 config = dotenv_values(".env")
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 load_dotenv()
 
@@ -36,10 +38,13 @@ class users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column((db.String(100)), nullable=False)
     pass_word = db.Column((db.String(100)), nullable=False)
+    img = db.Column((db.String(100)), nullable=False)
 
-    def __init__(self, user_name, pass_word):
+    def __init__(self, user_name, pass_word,img):
         self.user_name = user_name
         self.pass_word = pass_word
+        self.img = img
+
 
 
 @app.route("/")
@@ -52,18 +57,34 @@ def home():
 def register():
     username = request.form.get("username")
     password = request.form.get("password")
+    image = request.form.get("image")
     if request.method == "POST":
         
-        user = users(user_name=username, pass_word=password)
+        user = users(user_name=username, pass_word=password, img =image)
         
         db.session.add(user)
         db.session.commit()
+           
+        image_name = request.files['file']
+        if image_name.filename == "":
+            print("no filename")
+            return redirect("/register")
+        
+        filename = image_name.filename
+        
+        
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        
+        
+        image_name.save(os.path.join(app.config["IMAGES"]+filename),30 )
         return render_template(
-            "registration.html", user_name=username, pass_word=password
+            "registration.html", user_name=username, pass_word=password,img=image
         )
+    
     if request.method == "GET":
+        
         return render_template(
-            "registration.html", user_name=username, pass_word=password
+            "registration.html", user_name=username, pass_word=password,img =image
         )
 
 
@@ -71,7 +92,7 @@ def register():
 def login():
     login_name = request.form.get("login_name")
     login_password = request.form.get("password")
-
+    session["loginname"] = login_name
     if request.method == "POST":
         if check_user(login_name, login_password):
 
@@ -87,7 +108,7 @@ def check_user(username, password):
         print(i.user_name, i.pass_word)
         if i.user_name == username and i.pass_word == password:
             print(i.user_name, i.pass_word)
-
+            
             return True
     return False
 
@@ -96,9 +117,11 @@ def check_user(username, password):
 def forum():
     forum_page = request.form.get("recipeForm")
     if request.method == "POST":
+
         return render_template("forum.html", forum_page=forum_page)
     else:
-        return render_template("forum.html", forum_page=forum_page)
+        loginname = session["loginname"]
+        return render_template("forum.html", forum_page=forum_page, loginname =loginname)
 
 
 @app.route("/kaart", methods=["GET", "POST"])
@@ -124,6 +147,7 @@ def upload_image():
         
         
         image_name.save(os.path.join(app.config["IMAGES"]+filename),30 )
+        
         
         print("image is saved")
         return redirect(f"/display_image/{filename}")

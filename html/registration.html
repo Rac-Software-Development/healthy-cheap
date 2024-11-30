@@ -18,12 +18,15 @@
     <p>stel je wachtwoord in</p>
     <input type="password" name="password" >
     <br>
-
+    <input type="file" name="image"  class="my-button">
+    <input type="submit" class="my-button" id="image" name="image">
+    <br>
     <button class="my-button" type="submit" value="register">registreer</button>
     <br>
-    
 
   </form>
+
+ 
   <form action="/login">
     <button class="my-button">go to login</button>
   </form>
@@ -32,12 +35,7 @@
   <form action="/upload_image" method="post" enctype="multipart/form-data">
     <input type="file" name="file"  class="my-button">
     <input type="submit" class="my-button" id="file" name="file">
-    {% if filename %}
-  <div>
-    <img src="{{url_for('static', filename='/static/images' + filename )}}" alt="">
-  </div>
 
-  {% endif %}
 
   </form>
 
