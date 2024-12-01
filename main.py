@@ -1,5 +1,6 @@
 import builtins
-from flask import Flask, render_template, session, url_for
+from flask import Flask, render_template, session, url_for, jsonify
+import json
 
 app = Flask(__name__, template_folder="html")
 
@@ -152,6 +153,15 @@ def display_image(filename):
        
         return render_template("forum.html", filename =filename)
 
+@app.route("/check", methods = ["GET","POST"])
+def check():
+    name= request.form.get("name")
+    if request.method == "POST":
+        
+
+        return json.load(name)
+    else:
+        return jsonify(name)
 
 if __name__ == "__main__":
 

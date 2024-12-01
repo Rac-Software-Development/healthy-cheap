@@ -18,15 +18,23 @@
     <h2>Recepten</h2>
       
 
-  <!-- {% if filename %}
-  <div>
-    <img src="/static/images/{{filename}}" alt="text" width="70" height="70">
-  </div>
-
-  {% endif %} -->
     <div id="recipes" class="div"></div><br>
+
+    <form action="/forum" method="post">
+        <input type="text" name="name" id="name">
+        <input type="submit">
+       
+    </form>
+ <h1 id="divdo"></h1>
    
-    <script>
+    
+   
+    
+ 
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+   
+    <script lang="Javascript" type="text/javascript">
         document.getElementById('recipeForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const recipeText = document.getElementById('recipeText').value;
@@ -50,6 +58,37 @@
                 button.nextElementSibling.appendChild(commentDiv);
             }
         }
+
+        
+            // const mijnDiv = document.createElement('div');
+            // recipeText = "hoi hai"
+            // mijnDiv.className = 'divje';
+            // mijnDiv.innerHTML = `<p>${recipeText}</p>`;
+            // document.getElementById("divdo").appendChild(mijnDiv)
+            
+            $(document).ready(
+            $("h1").text(function () {
+                $.ajax({
+                    url: "http://127.0.0.1:5000/check",
+                    type: "application/json",
+                    method : "POST",
+                    success: function (result) {
+                        $("#divdo").html(result);
+                        console.log(result);
+                        
+                    }
+                    
+                }
+            );
+               
+            
+        
+
+            
+        }))
+       
     </script>
+
+
 </body>
 </html>
