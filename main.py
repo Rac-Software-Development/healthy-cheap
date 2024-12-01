@@ -60,35 +60,39 @@ def home():
 def register():
     username = request.form.get("username")
     password = request.form.get("password")
-    image = request.form.get("image")
+
+    image_name = request.files.get("image_name")
    
     if request.method == "POST":
         
-        user = users(user_name=username, pass_word=password, img =image)
         
-        db.session.add(user)
-        db.session.commit()
            
-        image_name = request.files['file']
+        
         if image_name.filename == "":
             print("no filename")
             return redirect("/register")
         
-        filename = image_name.filename
+        filename = secure_filename(image_name.filename)
         
         
+
         basedir = os.path.abspath(os.path.dirname(__file__))
         
         
         image_name.save(os.path.join(app.config["IMAGES"]+filename),30 )
+        session["image"] = image_name.filename
+        user = users(user_name=username, pass_word=password, img =image_name.filename)
+        
+        db.session.add(user)
+        db.session.commit()
         return render_template(
-            "registration.html", user_name=username, pass_word=password,img=image
+            "registration.html", user_name=username, pass_word=password,image_name=image_name
         )
     
     if request.method == "GET":
         
         return render_template(
-            "registration.html", user_name=username, pass_word=password,img=image
+            "registration.html", user_name=username, pass_word=password
         )
 
 
@@ -114,7 +118,7 @@ def check_user(username, password):
         print(i.user_name, i.pass_word)
         if i.user_name == username and i.pass_word == password:
             
-            session["image"] = i.img
+            
             print(i.img)
             
             return True
@@ -129,9 +133,9 @@ def forum():
         return render_template("forum.html", forum_page=forum_page)
     else:
         
-        image = session["image"]
+        filename = session["image"]
         loginname = session["loginname"]
-        return render_template("forum.html", forum_page=forum_page, loginname =loginname, image = image)
+        return render_template("forum.html", forum_page=forum_page, loginname =loginname, filename = filename)
 
 
 @app.route("/kaart", methods=["GET", "POST"])
@@ -140,29 +144,7 @@ def map():
     return render_template("kaart.html")
 
 
-@app.route("/upload_image", methods=["GET", "POST"])
-def upload_image():
-    
-    if request.method == "POST":
-        print(request.files)
-        image_name = request.files['file']
-        if image_name.filename == "":
-            print("no filename")
-            return redirect("/register")
-        
-        filename = image_name.filename
-        
-        
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        
-        
-        image_name.save(os.path.join(app.config["IMAGES"]+filename),30 )
-        
-        
-        print("image is saved")
-        return redirect(f"/display_image/{filename}")
-     
-    return redirect("/register")
+
 
 
 @app.route("/display_image/<filename>", methods=["GET", "POST"])

@@ -18,12 +18,12 @@
     <h2>Recepten</h2>
       
 
-  {% if filename %}
+  <!-- {% if filename %}
   <div>
-    <img src="/static/images/{{filename}}" alt="" width="70" height="70">
+    <img src="/static/images/{{filename}}" alt="text" width="70" height="70">
   </div>
 
-  {% endif %}
+  {% endif %} -->
     <div id="recipes" class="div"></div><br>
    
     <script>
@@ -33,7 +33,9 @@
             if (recipeText) {
                 const recipeDiv = document.createElement('div');
                 recipeDiv.className = 'recipe';
-                recipeDiv.innerHTML = `<p>{{loginname}}{{image}}</p><p>${recipeText}</p><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div> `;
+                recipeDiv.innerHTML = `<p>{{loginname}}<div>
+    <img src="/static/images/{{filename}}" alt="text" width="70" height="70">
+  </div></p><p>${recipeText}</p><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div> `;
                 document.getElementById('recipes').appendChild(recipeDiv);
                 document.getElementById('recipeText').value = '';
             }
