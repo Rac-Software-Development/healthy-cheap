@@ -20,6 +20,7 @@ h1,h3 {
   margin-right: 30;
   margin-top: 40;
   margin-bottom: 30;
+  border-radius: 25px;
 }
 .h1-login{
   color: rgb(216, 101, 29);
