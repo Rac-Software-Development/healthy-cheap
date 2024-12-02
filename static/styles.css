@@ -231,3 +231,28 @@ textarea {
   border-radius: 25px;
 
 }
+
+.sidenav{
+ 
+  background-color: aqua;
+}
+
+.sidenav a{
+  display: block;
+  font-size: 25;
+  padding: 8px 8px 8px 4px;
+  height: 70%; /* 100% Full-height */
+  width: 100; /* 0 width - change this with JavaScript */
+  position: fixed;
+  z-index: 1; /* Stay on top */
+  top: 60; /* Stay at the top */
+  left: 22;
+ 
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 9px; /* Place content 60px from the top */
+  transition: 0.5s
+}
+.sidenav a:hover{
+  background-color: #beeb4b;
+  transition: 0.3s;
+}
