@@ -142,6 +142,11 @@ def map():
 
     return render_template("kaart.html")
 
+@app.route("/nav", methods=["GET", "POST"])
+def nav():
+
+    return render_template("navigate.html")
+
 
 
 

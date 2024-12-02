@@ -194,10 +194,40 @@ textarea {
   color: blue;
 }
 
+
+
 .home-text{
   margin-top: 100;
 
   margin-left: -500;
   font-size: 13px;
   color: blue;
+}
+
+.bars{
+  display: flex;
+  
+  background-color:rgb(70, 212, 19); ;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: -10;
+  margin-bottom: 10;
+  padding-top: 150;
+  padding-bottom: 400;
+  border-radius: 25px;
+
+}
+
+.nav-bar{
+  display: flex;
+  
+  background-color:rgb(18, 31, 13); ;
+  margin-left: 300;
+  margin-right: 300;
+  margin-top: -10;
+  margin-bottom: 10;
+  padding-top: 150;
+  padding-bottom: 400;
+  border-radius: 25px;
+
 }
