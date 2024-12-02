@@ -65,10 +65,6 @@ def register():
     image_name = request.files.get("image_name")
    
     if request.method == "POST":
-        
-        
-           
-        
         if image_name.filename == "":
             print("no filename")
             return redirect("/register")
@@ -81,7 +77,7 @@ def register():
         
         
         image_name.save(os.path.join(app.config["IMAGES"]+filename),30 )
-        session["image"] = image_name.filename
+        session["filename"] = image_name.filename
         user = users(user_name=username, pass_word=password, img =image_name.filename)
         
         db.session.add(user)
@@ -102,11 +98,13 @@ def login():
     login_name = request.form.get("login_name")
     login_password = request.form.get("password")
     session["loginname"] = login_name
+    
+    
  
     
     if request.method == "POST":
         if check_user(login_name, login_password):
-
+            
             return redirect("/forum")
 
     return render_template(
@@ -119,10 +117,10 @@ def check_user(username, password):
         print(i.user_name, i.pass_word)
         if i.user_name == username and i.pass_word == password:
             
-            
+            session["image"] = i.img
             print(i.img)
             
-            return True
+            return True,i.img
     return False
 
 
