@@ -99,13 +99,10 @@ def login():
     login_password = request.form.get("password")
     session["loginname"] = login_name
     
-    
- 
-    
     if request.method == "POST":
         if check_user(login_name, login_password):
             
-            return redirect("/forum")
+            return redirect("/nav")
 
     return render_template(
         "login.html", login_name=login_name, login_password=login_password
@@ -158,11 +155,11 @@ def display_image(filename):
 
 @app.route("/check", methods = ["GET","POST"])
 def check():
-    name= request.form.get("name")
+    name= "iets"
     if request.method == "POST":
-        
+        name="one piece"
 
-        return json.load(name)
+        return jsonify(name)
     else:
         return jsonify(name)
 
