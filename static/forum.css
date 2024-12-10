@@ -1,0 +1,56 @@
+textarea{
+  margin-left: auto;
+  position: absolute;
+  left: 700px;
+  padding-right: 30px;
+  top: 70px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-image: url('/static/veggies.png');
+  opacity: 0.9;
+}
+.recipe, .comment {
+  
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(206, 238, 110);
+  border-radius: 25px;
+ 
+}
+.recipe:first-child {
+  margin-top: none;
+}
+.comment {
+  margin-left: 20px;
+}
+
+.post-button{
+  margin: auto;
+  position: absolute;
+  right:  100px;
+  background-color: #e67c13;
+  padding: 15px;
+  border: #e67c13;
+  border-radius: 25px;
+  top: 70px;
+}
+
+.react-button{
+  background-color: #e67c13;
+  padding: 15px;
+  border: #e67c13;
+  border-radius: 25px;
+  margin-bottom: 20px;
+}
+
+
+
+.div-react{
+  padding: 15px;
+  background-color:rgb(122, 213, 104);
+  border-radius: 25px;
+  margin-bottom: 15px;
+}

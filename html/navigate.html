@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/styles.css" />
+  <title>Navigate</title>
+</head>
+<body>
+  <h1>navigate naar je app</h1>
+  <div class="bars">
+    </div>
+    
+    <div class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/kaart" >Kaart</a>
+     
+      <a id="a"href="/forum">forum</a>
+      <br>
+    
+   
+     </div>
+     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+ 
+  <script>
+    function openNavbar() {
+       const openNav = document.getElementById("a");
+        elem.style.width = "250px"
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+  </script>
+  
+</body>
+</html>

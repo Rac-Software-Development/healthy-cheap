@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>register</title>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 
 <body>
+  
+<div class="bar">
   <h1>register</h1>
-
-  <form action="/register" method="post">
+  <form action="/register" method="post" enctype="multipart/form-data" >
     <p>stel je gebruikersnaam in</p>
     <input type="text" name="username" >
     <br>
@@ -18,13 +19,28 @@
     <p>stel je wachtwoord in</p>
     <input type="password" name="password" >
     <br>
-
-    <button type="submit" value="register">registreer</button>
+    <input type="file" name="image_name" id="image_name" class="my-button">
+    <input type="submit" class="my-button" id="image_name" name="image_name">
+    <br>
+    <button class="my-button" type="submit" value="register">registreer</button>
+    <br>
 
   </form>
+
   <form action="/login">
-    <button>go to login</button>
+    <button class="my-button">go to login</button>
   </form>
+</div>
+
+
+ 
+  
+
+
+  
+
+
+ 
 </body>
 
 </html>
