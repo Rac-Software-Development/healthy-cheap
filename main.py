@@ -153,15 +153,15 @@ def display_image(filename):
        
         return render_template("forum.html", filename =filename)
 
-@app.route("/check", methods = ["GET","POST"])
+@app.route("/check")
 def check():
-    name= "iets"
-    if request.method == "POST":
-        name="one piece"
+    name= "name"
+    return {name:"Nizar"}
 
-        return jsonify(name)
-    else:
-        return jsonify(name)
+@app.route("/som")
+def som():
+
+    return render_template("something.html")
 
 if __name__ == "__main__":
 

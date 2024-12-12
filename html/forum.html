@@ -12,10 +12,16 @@
 <body>
     <div class="div-react">
     <h1>Deel je recepten</h1>
+
+    <h3 class="h32">prijs</h3>
     <form id="recipeForm" method="post">
-        <textarea id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
+        <textarea class="textarea2" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
+        <h3 class="h3">recept</h3>
+        <textarea class="textarea1" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea>
+        
         <button class="post-button" type="submit">Indienen</button>
     </form>
+    
     <h2>Recepten</h2>
     <div id="recipes" class="div"></div><br>
 
@@ -24,15 +30,18 @@
         <input type="submit">
        
     </form>
- <h1 id="divdo">sdd</h1>
+    
 </div>
+
+
+<h3 id="divdo"></h3>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
    
     <script lang="Javascript" type="text/javascript">
         document.getElementById('recipeForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const recipeText = document.getElementById('recipeText').value;
-            if (recipeText) {
+            
                 const recipeDiv = document.createElement('div');
                 recipeDiv.className = 'recipe';
                 recipeDiv.innerHTML = `<p>{{loginname}}<div>
@@ -40,7 +49,7 @@
   </div></p><p>${recipeText}</p><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div> `;
                 document.getElementById('recipes').appendChild(recipeDiv);
                 document.getElementById('recipeText').value = '';
-            }
+          
         });
 
         function addComment(button) {
@@ -57,17 +66,18 @@
            
             
             $(document).ready(
-            $("h1").text(function () {
+            $("h3").html(function () {
                 $.ajax({
                     url: "http://127.0.0.1:5000/check",
                     type: "application/json",
-                    method : "POST",
+                    method : "GET",
                     success: function (result) {
                         $("#divdo").html(result);
                         console.log(result);
                         
-                    }
-                    
+                    },
+                   
+              
                 }
             );
                

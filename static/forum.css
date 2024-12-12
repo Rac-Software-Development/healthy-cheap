@@ -1,9 +1,32 @@
-textarea{
+.textarea2{
   margin-left: auto;
   position: absolute;
   left: 700px;
   padding-right: 30px;
   top: 70px;
+}
+
+.textarea1{
+  margin-left: auto;
+  position: absolute;
+  left: 400px;
+  padding-right: 30px;
+  top: 70px;
+}
+
+.h3{
+  margin-left: auto;
+  position: absolute;
+  left: 400px;
+  padding-right: 30px;
+  top: 90px;
+}
+.h32{
+  margin-left: auto;
+  position: absolute;
+  left: 700px;
+  padding-right: 30px;
+  top: 90px;
 }
 
 body {
