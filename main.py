@@ -144,10 +144,6 @@ def nav():
 
     return render_template("navigate.html")
 
-
-
-
-
 @app.route("/display_image/<filename>", methods=["GET", "POST"])
 def display_image(filename):
        

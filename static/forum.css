@@ -35,7 +35,7 @@ body {
   background-image: url('/static/veggies.png');
   opacity: 0.9;
 }
-.recipe, .comment {
+.recipe, .comment, .p{
   
   padding: 10px;
   margin-bottom: 10px;
@@ -74,6 +74,26 @@ body {
 .div-react{
   padding: 15px;
   background-color:rgb(122, 213, 104);
+  border-radius: 25px;
+  margin-bottom: 15px;
+}
+
+.p{
+  display: inline-block;
+  
+ 
+}
+
+.p2{
+  display: inline-block;
+  margin-top: -10px
+ 
+}
+
+.divje ,.p,.p2{
+  
+  padding: 5px;
+  background-color:rgb(93, 141, 213);
   border-radius: 25px;
   margin-bottom: 15px;
 }

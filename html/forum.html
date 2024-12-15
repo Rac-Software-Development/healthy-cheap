@@ -14,7 +14,7 @@
     <h1>Deel je recepten</h1>
 
     <h3 class="h32">prijs</h3>
-    <form id="recipeForm" method="post">
+    <form action="/forum"  id="recipeForm" method="post">
         <textarea class="textarea2" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
         <h3 class="h3">recept</h3>
         <textarea class="textarea1" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea>
@@ -25,14 +25,10 @@
     <h2>Recepten</h2>
     <div id="recipes" class="div"></div><br>
 
-    <form action="/forum" method="post">
-        <input type="text" name="name" id="name">
-        <input type="submit">
-       
-    </form>
+    
     
 </div>
-
+<p id="recipeget"></p>
 
 <h3 id="divdo"></h3>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -44,11 +40,15 @@
             
                 const recipeDiv = document.createElement('div');
                 recipeDiv.className = 'recipe';
-                recipeDiv.innerHTML = `<p>{{loginname}}<div>
-    <img src="/static/images/{{filename}}" alt="text" width="70" height="70">
-  </div></p><p>${recipeText}</p><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div> `;
+                recipeDiv.innerHTML = `<div class="divje">
+    <div><p>{{loginname}}</p></div>
+    <div class="p2"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"></div>
+  <div class="p"><p>${recipeText}</p></div></div><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div> `;
                 document.getElementById('recipes').appendChild(recipeDiv);
                 document.getElementById('recipeText').value = '';
+
+                var recipeget =  document.getElementById('recipeget').appendChild(recipeDiv);
+
           
         });
 
@@ -61,8 +61,8 @@
                 button.nextElementSibling.appendChild(commentDiv);
             }
         }
-
         
+       
            
             
             $(document).ready(
