@@ -97,3 +97,10 @@ body {
   border-radius: 25px;
   margin-bottom: 15px;
 }
+
+.logout-button{
+  background-color: #e67c13;
+  padding: 10px;
+  border-radius: 20px;
+  border: #e67c13;
+}
