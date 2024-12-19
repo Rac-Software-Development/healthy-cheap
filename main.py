@@ -130,6 +130,8 @@ def forum():
     else:
         
         filename = session["image"]
+       
+    
         loginname = session["loginname"]
         return render_template("forum.html", forum_page=forum_page, loginname =loginname, filename = filename)
 
@@ -158,6 +160,15 @@ def check():
 def som():
 
     return render_template("something.html")
+
+
+@app.route("/logout", methods = ["POST","GET"])
+def logout():
+    session.pop("id",None)
+    session.pop("image","not a user")
+    print(session)
+    
+    return redirect("/login")
 
 if __name__ == "__main__":
 
