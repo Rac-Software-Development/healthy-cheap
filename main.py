@@ -113,6 +113,7 @@ def check_user(username, password):
     for i in db.session.query(users):
         print(i.user_name, i.pass_word)
         if i.user_name == username and i.pass_word == password:
+            session["id"] = i.id
             
             session["image"] = i.img
             print(i.img)
@@ -138,8 +139,11 @@ def forum():
 
 @app.route("/kaart", methods=["GET", "POST"])
 def map():
+    
 
-    return render_template("kaart.html")
+
+        return render_template("kaart.html")
+    
 
 @app.route("/nav", methods=["GET", "POST"])
 def nav():
