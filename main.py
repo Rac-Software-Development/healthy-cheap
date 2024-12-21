@@ -127,16 +127,19 @@ def check_user(username, password):
 @app.route("/forum", methods=["GET", "POST"])
 def forum():
     forum_page = request.form.get("recipeForm")
-    if request.method == "POST":
+    if 'id' in session:
+        if request.method == "POST":
 
-        return render_template("forum.html", forum_page=forum_page)
-    else:
+            return render_template("forum.html", forum_page=forum_page)
+        else:
+            
+            filename = session["image"]
         
-        filename = session["image"]
-       
-    
-        loginname = session["loginname"]
-        return render_template("forum.html", forum_page=forum_page, loginname =loginname, filename = filename)
+        
+            loginname = session["loginname"]
+            return render_template("forum.html", forum_page=forum_page, loginname =loginname, filename = filename)
+    else:
+        return redirect("/login")
 
 
 @app.route("/kaart", methods=["GET", "POST"])
@@ -153,8 +156,10 @@ def map():
 
 @app.route("/nav", methods=["GET", "POST"])
 def nav():
-
-    return render_template("navigate.html")
+    if 'id' in session:
+        return render_template("navigate.html")
+    else:
+        return redirect("/login")
 
 @app.route("/display_image/<filename>", methods=["GET", "POST"])
 def display_image(filename):
