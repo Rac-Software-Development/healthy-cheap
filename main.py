@@ -111,12 +111,14 @@ def login():
 
 def check_user(username, password):
     for i in db.session.query(users):
+        
         print(i.user_name, i.pass_word)
+        
         if i.user_name == username and i.pass_word == password:
-            session["id"] = i.id
             
+            session["id"] = i.id
             session["image"] = i.img
-            print(i.img)
+            print(i.img,session)
             
             return True,i.img
     return False
@@ -139,10 +141,14 @@ def forum():
 
 @app.route("/kaart", methods=["GET", "POST"])
 def map():
-    
+       
+        if 'id' in session:
+        
 
-
-        return render_template("kaart.html")
+            return render_template("kaart.html")
+        else:
+            print(session)
+            return redirect("/login")
     
 
 @app.route("/nav", methods=["GET", "POST"])
