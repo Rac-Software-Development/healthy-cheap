@@ -28,13 +28,21 @@
     <h2>Recepten</h2>
     <div id="recipes" class="div"></div><br>
 
+    <form action="/check" method="post">
+        <input type="text" name="myvar" id="myvar">
+        <input type="button">
+    </form>
+  
+ 
+
     
     
 </div>
 <p id="recipeget"></p>
-
-<h3 id="divdo"></h3>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<div class="divje">
+    <h1 id="divdo"></h1>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    
     <script lang="Javascript" type="text/javascript">
         document.getElementById('recipeForm').addEventListener('submit', function(event) {
@@ -69,13 +77,13 @@
            
             
             $(document).ready(
-            $("h3").html(function () {
+            $("h1").append(function () {
                 $.ajax({
                     url: "http://127.0.0.1:5000/check",
                     type: "application/json",
-                    method : "GET",
+                    method : "POST",
                     success: function (result) {
-                        $("#divdo").html(result);
+                        $("#divdo").append(result["name"]);
                         console.log(result);
                         
                     },

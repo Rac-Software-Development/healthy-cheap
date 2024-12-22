@@ -49,6 +49,19 @@ class users(db.Model):
     def __repr__(self):
         return str(self.img)
 
+class posts(db.Model):
+    __tablename__= "posts"
+    post_id = db.Column(db.Integer,db.ForeignKey(users.id), primary_key=True )
+    price = db.Column((db.Float(100)), nullable=False)
+    ingredients = db.Column((db.String(100)), nullable=False)
+
+    user = db.relationship('users', foreign_keys='posts.post_id')
+
+    def __init__(self,price,ingredients):
+        self.price = price
+        self.ingredients = ingredients
+        
+
 
 
 @app.route("/")
@@ -166,10 +179,14 @@ def display_image(filename):
        
         return render_template("forum.html", filename =filename)
 
-@app.route("/check")
+@app.route("/check", methods=["POST","GET"])
 def check():
-    name= "name"
-    return {name:"Nizar"}
+    Myvar = request.form.get("myvar")
+    if request.method == "POST":
+        return {"name":Myvar}
+    if request.method == "GET":
+        name= "name"
+        return {name:"Nizar"}
 
 @app.route("/som")
 def som():
