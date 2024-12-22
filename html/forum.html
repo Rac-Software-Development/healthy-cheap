@@ -83,7 +83,7 @@
                 $.ajax({
                     url: "http://127.0.0.1:5000/check",
                     type: "application/json",
-                    method : "POST",
+                    method : "GET",
                     success: function (result) {
                         $("#divdo").append(result["name"]);
                         console.log(result);

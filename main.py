@@ -209,9 +209,11 @@ def check():
     if request.method == "POST":
         return {"name":"John"}
     if request.method == "GET":
-        name= "name"
-        return {name:"Nizar"}
-
+        my_posts = posts.query.all()
+        # for post in my_posts:
+        #     post
+        return  {"name":str([post for post in my_posts ])}
+        
 @app.route("/som")
 def som():
 
