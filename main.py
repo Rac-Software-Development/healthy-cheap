@@ -40,27 +40,43 @@ class users(db.Model):
     user_name = db.Column((db.String(100)), nullable=False)
     pass_word = db.Column((db.String(100)), nullable=False)
     img = db.Column((db.String(100)), nullable=False)
+    post= db.relationship("posts", backref=db.backref("users", lazy=True))
 
     def __init__(self, user_name, pass_word,img):
         self.user_name = user_name
         self.pass_word = pass_word
         self.img = img
+        return self.id
     
     def __repr__(self):
         return str(self.img)
+    
+    
+   
+
+
+
 
 class posts(db.Model):
     __tablename__= "posts"
-    post_id = db.Column(db.Integer,db.ForeignKey(users.id), primary_key=True )
+    post_id = db.Column(db.Integer, primary_key=True )
     price = db.Column((db.Float(100)), nullable=False)
     ingredients = db.Column((db.String(100)), nullable=False)
+    dish = db.Column((db.String(100)), nullable=False)
 
-    user = db.relationship('users', foreign_keys='posts.post_id')
+    users_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+   
+    user = db.relationship("users", backref=db.backref("posts", lazy=True))
 
-    def __init__(self,price,ingredients):
+
+    def __init__(self,price,ingredients,dish,user_id):
+        self.users_id = user_id
         self.price = price
         self.ingredients = ingredients
-        
+        self.dish = dish
+    
+    def __repr__(self):
+        return f"('{self.post_id}', '{self.dish}','{self.price},{self.users_id}')"
 
 
 
@@ -139,18 +155,25 @@ def check_user(username, password):
 
 @app.route("/forum", methods=["GET", "POST"])
 def forum():
-    forum_page = request.form.get("recipeForm")
+   
+    price = request.form.get("price")
+    ingredients = request.form.get("ingredients")
+    dish = request.form.get("dish")
     if 'id' in session:
         if request.method == "POST":
+            post_of_user = posts(price=price,ingredients=ingredients,dish=dish,user_id=session['id'])
+        
+            db.session.add(post_of_user)
+            db.session.commit()
 
-            return render_template("forum.html", forum_page=forum_page)
+            return render_template("forum.html",price = price,ingredients=ingredients,dish=dish )
         else:
             
             filename = session["image"]
         
         
             loginname = session["loginname"]
-            return render_template("forum.html", forum_page=forum_page, loginname =loginname, filename = filename)
+            return render_template("forum.html",  loginname =loginname, filename = filename)
     else:
         return redirect("/login")
 
@@ -181,9 +204,10 @@ def display_image(filename):
 
 @app.route("/check", methods=["POST","GET"])
 def check():
-    Myvar = request.form.get("myvar")
+    
+
     if request.method == "POST":
-        return {"name":Myvar}
+        return {"name":"John"}
     if request.method == "GET":
         name= "name"
         return {name:"Nizar"}
