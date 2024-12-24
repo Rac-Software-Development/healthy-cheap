@@ -49,7 +49,7 @@ class users(db.Model):
         return self.id
     
     def __repr__(self):
-        return str(self.img)
+        return f"({self.user_name}, {self.img})"
     
     
    
@@ -210,9 +210,17 @@ def check():
         return {"name":"John"}
     if request.method == "GET":
         my_posts = posts.query.all()
-        # for post in my_posts:
-        #     post
-        return  {"name":str([post for post in my_posts ])}
+        print(my_posts)
+        user = users.query.all()
+        print(u for u in user)
+        # for u in user:
+        #     u
+        #     return {"name":str(u)}
+
+        return {"name":[str(u) for u in user]}
+        
+        
+        # return  {"name":session["loginname"],"image":session["image"],"post":[str(post) for post in my_posts ]}
         
 @app.route("/som")
 def som():
