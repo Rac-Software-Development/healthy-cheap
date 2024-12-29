@@ -249,11 +249,14 @@ def check():
         
         for post in my_posts:
             print(my_posts)
+            
             if str(post.users_id) == str(session['id']):
                 
                 
-                user_post = {"name": session["loginname"],"image":session["image"],"post":str([post.users_id,post.dish,post.ingredients])}
+                
+                user_post = {"name": session["loginname"],"image":session["image"],"post":str([i for i in my_posts if i.users_id == session['id']])}
                 return user_post
+            
         return {"name":"alle"}
         
                  
