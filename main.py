@@ -1,4 +1,6 @@
+from base64 import encodebytes
 import builtins
+import io
 from flask import Flask, render_template, session, url_for, jsonify
 import json
 
@@ -202,25 +204,24 @@ def display_image(filename):
        
         return render_template("forum.html", filename =filename)
 
-@app.route("/check", methods=["POST","GET"])
-def check():
-    
-
-    if request.method == "POST":
-        return {"name":"John"}
-    if request.method == "GET":
-        my_posts = posts.query.all()
-        print(my_posts)
-        user = users.query.all()
-        print(u for u in user)
+        
+        # user = users.query.all()
+        # print(u for u in user)
         # for u in user:
         #     u
         #     return {"name":str(u)}
 
-        return {"name":[str(u) for u in user]}
+        # return {"name":[str(u) for u in user]}
         
-        
-        # return  {"name":session["loginname"],"image":session["image"],"post":[str(post) for post in my_posts ]}
+        # return  {"name":session["loginname"],"image":get_response_image(f'static/images/{session["image"]}'),"post":[str(post) for post in my_posts ]}
+
+
+# def get_response_image(image_path):
+#     pil_img = Image.open(image_path, mode='r') # reads the PIL image
+#     byte_arr = io.BytesIO()
+#     pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
+#     encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
+#     return encoded_img
         
 @app.route("/som")
 def som():
@@ -235,6 +236,27 @@ def logout():
     print(session)
     
     return redirect("/login")
+
+
+@app.route("/check", methods=["POST","GET"])
+def check():
+    
+
+    if request.method == "POST":
+        return {"name":"John"}
+    if request.method == "GET":
+        my_posts = posts.query.all()
+        
+        for post in my_posts:
+            print(my_posts)
+            if str(post.users_id) == str(session['id']):
+                
+                
+                user_post = {"name": session["loginname"],"image":session["image"],"post":str([post.users_id,post.dish,post.ingredients])}
+                return user_post
+        return {"name":"alle"}
+        
+                 
 
 if __name__ == "__main__":
 

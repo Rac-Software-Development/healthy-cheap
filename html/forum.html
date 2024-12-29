@@ -46,7 +46,6 @@
         <li id="divdo"></li>
         <h4 id="post"></h4>
         <div class="p2"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"></div>
-
     
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -89,12 +88,13 @@
                     url: "http://127.0.0.1:5000/check",
                     type: "application/json",
                     method : "GET",
+                    ImageBytes: 'image',
                     success: function (result) {
                       
                             console.log(result["name"])
                             $("#divdo").append(result["name"]);
-                            // $("#divdo").append(result["image"]);
-                            // $("#divdo").append(result["post"]);
+                            $("img").append(result["image"]);
+                            $("#divdo").append(result["post"]);
                      
                         
                        
