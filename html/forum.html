@@ -44,8 +44,9 @@
 <div class="divje">
     
         <li id="divdo"></li>
-        <h4 id="post"></h4>
-        <div class="p2"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"></div>
+        <br>
+        
+        <div class="p2" style="display: flex;"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"> <h4 id="post"></h4></div>
     
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -91,10 +92,10 @@
                     ImageBytes: 'image',
                     success: function (result) {
                       
-                            console.log(result["name"])
+                            console.log(result["name"],result["post"])
                             $("#divdo").append(result["name"]);
                             $("img").append(result["image"]);
-                            $("#divdo").append(result["post"]);
+                            $("#post").append(result["post"]);
                      
                         
                        

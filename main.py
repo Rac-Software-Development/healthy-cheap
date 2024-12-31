@@ -78,7 +78,7 @@ class posts(db.Model):
         self.dish = dish
     
     def __repr__(self):
-        return f"('{self.post_id}', '{self.dish}','{self.price},{self.users_id}')"
+        return f"('{self.ingredients}', '{self.dish}','{self.price},{self.users_id}')"
 
 
 
@@ -238,6 +238,13 @@ def logout():
     return redirect("/login")
 
 
+def replace_characters(characters: str):
+        array_characters = ['[',']','g',"'"]
+        for i in array_characters:
+            characters = characters.replace(i , " ")
+            print(type(characters))
+        return  characters
+
 @app.route("/check", methods=["POST","GET"])
 def check():
     
@@ -254,10 +261,16 @@ def check():
                 
                 
                 
-                user_post = {"name": session["loginname"],"image":session["image"],"post":str([i for i in my_posts if i.users_id == session['id']])}
+                user_post = {"name": session["loginname"],
+                             "image":session["image"],
+                             "post":replace_characters(str([i for i in my_posts if i.users_id == session['id']] ))
+                             }
+                print(user_post)
                 return user_post
             
         return {"name":"alle"}
+    
+
         
                  
 
