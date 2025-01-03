@@ -172,7 +172,7 @@ def forum():
         else:
             
             filename = session["image"]
-        
+            print(session)
         
             loginname = session["loginname"]
             return render_template("forum.html",  loginname =loginname, filename = filename)
@@ -204,24 +204,8 @@ def display_image(filename):
        
         return render_template("forum.html", filename =filename)
 
-        
-        # user = users.query.all()
-        # print(u for u in user)
-        # for u in user:
-        #     u
-        #     return {"name":str(u)}
+    
 
-        # return {"name":[str(u) for u in user]}
-        
-        # return  {"name":session["loginname"],"image":get_response_image(f'static/images/{session["image"]}'),"post":[str(post) for post in my_posts ]}
-
-
-# def get_response_image(image_path):
-#     pil_img = Image.open(image_path, mode='r') # reads the PIL image
-#     byte_arr = io.BytesIO()
-#     pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
-#     encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
-#     return encoded_img
         
 @app.route("/som")
 def som():
@@ -232,7 +216,7 @@ def som():
 @app.route("/logout", methods = ["POST","GET"])
 def logout():
     session.pop("id",None)
-    session.pop("image","not a user")
+   
     print(session)
     
     return redirect("/login")
@@ -245,6 +229,17 @@ def replace_characters(characters: str):
             print(type(characters))
         return  characters
 
+def give_image_for_post():
+    my_posts = posts.query.all()
+    my_user = users.query.all()
+    for i in my_posts:
+        for g in my_user:
+            if i.users_id == g.id and g.id == session['id']: 
+                file_name = g.img
+                return file_name
+    return file_name
+
+
 @app.route("/check", methods=["POST","GET"])
 def check():
     
@@ -253,26 +248,46 @@ def check():
         return {"name":"John"}
     if request.method == "GET":
         my_posts = posts.query.all()
+        all_users = users.query.all()
+
+        users_list = []
+        for g in all_users:
+            users_list.append(str(g.img))
+      
+            
         
         for post in my_posts:
-            print(my_posts)
+            
             
             if str(post.users_id) == str(session['id']):
                 
+                for i in users_list:
+                        # [i].append(i.img)
+                    print(users_list)   
+                    # if i.id == post.users_id:
+                    print(type(all_users))
+                        
+                    
+                    user_post = {"name": session['loginname'],
+                                    "image":users_list,
+                                    "post":replace_characters(str([p for p in my_posts if p.users_id ] ))
+                                    }
+                        
+                    return user_post
+        
+        return {"name":"error"}
+    
+@app.route("/static/image/<image>", methods=["GET"])
+def image_render(image):
+    image = session['image']
+    return image
                 
-                
-                user_post = {"name": session["loginname"],
-                             "image":session["image"],
-                             "post":replace_characters(str([i for i in my_posts if i.users_id == session['id']] ))
-                             }
-                print(user_post)
-                return user_post
             
-        return {"name":"alle"}
+        
+
+    
     
 
-        
-                 
 
 if __name__ == "__main__":
 

@@ -45,6 +45,7 @@
     
         <li id="divdo"></li>
         <br>
+       <p id="img"></p>
         
         <div class="p2" style="display: flex;"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"> <h4 id="post"></h4></div>
     
@@ -92,12 +93,16 @@
                     ImageBytes: 'image',
                     success: function (result) {
                       
-                            console.log(result["name"],result["post"])
+                            console.log(result["name"])
+                            
                             $("#divdo").append(result["name"]);
-                            $("img").append(result["image"]);
+                            
                             $("#post").append(result["post"]);
-                     
-                        
+
+                            for (i=0; i< result["image"].length; i++){
+                                $("#img").append(`<img src='/static/images/${result['image'][i]}' alt='text' width='70' height='70' >`);
+                            }
+                            return  $("#img").append(`<img src='/static/images/${result['image'][i]}' alt='text' width='70' height='70' >`);
                        
                             
                     },
@@ -107,6 +112,19 @@
             );
                
             
+            $("img").append(function(){
+                $.ajax({
+                    url: `http://127.0.0.1:5000/static/image/${data}`,
+                    type: "image/jpeg",
+                    method : "GET",
+                    succes: function(data){
+                        console.log(d,"hey")
+                        $('#img').html('Image : <img src="data:image/jpeg;base64,' + data + '" />');
+                    }
+                })
+
+            }
+        )
         
 
             
