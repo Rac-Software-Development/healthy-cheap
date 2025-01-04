@@ -45,9 +45,9 @@
     
         <li id="divdo"></li>
         <br>
-       <p id="img"></p>
+     
         
-        <div class="p2" style="display: flex;"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"> <h4 id="post"></h4></div>
+        <div class="p2" style="display: flex;"><p id="img" ><h4 id="post"></h4></p> </div>
     
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -97,14 +97,15 @@
                             
                             $("#divdo").append(result["name"]);
                             
-                            $("#post").append(result["post"]);
-
-                            for (i=0; i< result["image"].length; i++){
-                                $("#img").append(`<img src='/static/images/${result['image'][i]}' alt='text' width='70' height='70' >`);
-                            }
-                            return  $("#img").append(`<img src='/static/images/${result['image'][i]}' alt='text' width='70' height='70' >`);
-                       
                             
+
+                            for (i=0; i< result["post"].length; i++){
+                                $("#img").append(`<div class=p2 style="display: flex;" ><img src='/static/images/${result['post'][i][4]}' alt='text' width='70' height='70' >`+ result["post"][i].slice(1,4) +'</div>');
+                                
+                            }
+                            // for (i=0; i< result["post"].length; i++){
+                            // $("#post").append(result["post"][i]+"<br>");
+                            // }
                     },
                    
               
@@ -112,19 +113,7 @@
             );
                
             
-            $("img").append(function(){
-                $.ajax({
-                    url: `http://127.0.0.1:5000/static/image/${data}`,
-                    type: "image/jpeg",
-                    method : "GET",
-                    succes: function(data){
-                        console.log(d,"hey")
-                        $('#img').html('Image : <img src="data:image/jpeg;base64,' + data + '" />');
-                    }
-                })
-
-            }
-        )
+            
         
 
             

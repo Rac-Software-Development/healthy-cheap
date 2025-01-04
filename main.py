@@ -253,28 +253,57 @@ def check():
         users_list = []
         for g in all_users:
             users_list.append(str(g.img))
-      
-            
+            users_list.append(int(g.id))
+           
         
-        for post in my_posts:
-            
-            
-            if str(post.users_id) == str(session['id']):
-                
-                for i in users_list:
-                        # [i].append(i.img)
-                    print(users_list)   
-                    # if i.id == post.users_id:
-                    print(type(all_users))
-                        
-                    
-                    user_post = {"name": session['loginname'],
-                                    "image":users_list,
-                                    "post":replace_characters(str([p for p in my_posts if p.users_id ] ))
-                                    }
-                        
-                    return user_post
+
+        user_dict = {}
+        user_dict["user_image"] = [i for i in users_list]
         
+        user_dict["user_id"] = [i for i in users_list  if type(i) == int]
+        print(user_dict)
+
+        # for t in user_dict["user_image"]:
+            
+        #         user_dict["üser_image"] = [list(k)+[k] for i in user_dict["user_image"]]
+     
+        new_dict = {}
+        
+
+        posts_list = []
+        for p in my_posts:
+         
+            posts_list.append((p.users_id,p.price,p.dish,p.ingredients))
+
+ 
+
+        posts_dict = {}
+        posts_dict["user"]= posts_list[0]
+        
+            
+        new_list = []
+        for i in range(0,len(users_list),2):
+            pair = users_list[i:i + 2] 
+            new_list.append(pair) 
+
+        for t,k in enumerate(new_list):
+            
+            
+          
+                print(t)
+                for i,worth in enumerate(posts_list):
+                    for v,d in enumerate(new_list):
+                        if d[1] == worth[0]:
+                            
+                                l = list(worth) +d
+                                posts_list[i]= l
+                        
+                            
+                user_post = {"name": session['loginname'],"post": posts_list}
+                                    
+                                        
+                return user_post
+                        
         return {"name":"error"}
     
 @app.route("/static/image/<image>", methods=["GET"])
