@@ -80,7 +80,20 @@ class posts(db.Model):
     def __repr__(self):
         return f"('{self.ingredients}', '{self.dish}','{self.price},{self.users_id}')"
 
+class reactions(db.Model):
+    __tablename__ = "reactions"
+    id = db.Column(db.Integer, primary_key=True )
+    reaction = db.Column((db.String(100)), nullable=False)
+    user_id_2= db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    user = db.relationship("users", backref=db.backref("reactions", lazy=True))
+
+    def __init__(self,reaction,user_id_2):
+        self.users_id_2 = user_id_2
+        self.reaction = reaction
+    
+    def __repr__(self):
+        return f"('{self.users_id_2}', '{self.reaction}')"
 
 @app.route("/")
 @app.route("/home")
@@ -308,10 +321,10 @@ def check():
                         
         return {"name":"error"}
     
-@app.route("/static/image/<image>", methods=["GET"])
-def image_render(image):
-    image = session['image']
-    return image
+@app.route("/info", methods=["GET"])
+def info():
+    
+    return render_template("information.html")
                 
             
         

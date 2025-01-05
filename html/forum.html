@@ -79,7 +79,7 @@
 
                             for (i=0; i< result["post"].length; i++){
                                 $("#img").append("<h5>"+result['post'][i][6]+"</h5>")
-                                $("#img").append(`<div class=p2 style="display: flex;" ><img src='/static/images/${result['post'][i][4]}' alt='text' width='70' height='70' >`+ result["post"][i].slice(1,4) +'</div>');
+                                $("#img").append(`<div class=div-react style="display: flex;" ><img src='/static/images/${result['post'][i][4]}' alt='text' width='70' height='70' >`+ result["post"][i].slice(1,4) +'</div>');
                                 
                             
                                 
@@ -87,7 +87,7 @@
                             }
                             
                             for (i=0; i< result["post"].length; i++){
-                                $("#react").append(  "<button class= 'react-button'>start</button><br>")
+                                $("#react").append(  "<button class= 'react-button'>reageer</button><br>")
                                 
                             }
                     },
