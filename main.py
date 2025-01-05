@@ -222,8 +222,8 @@ def logout():
     return redirect("/login")
 
 
-def replace_characters(characters: str):
-        array_characters = ['[',']','g',"'"]
+def replace_characters(characters):
+        array_characters = ['[',']','g',"'","/n"]
         for i in array_characters:
             characters = characters.replace(i , " ")
             print(type(characters))
@@ -254,11 +254,13 @@ def check():
         for g in all_users:
             users_list.append(str(g.img))
             users_list.append(int(g.id))
+            users_list.append(str(g.user_name))
            
         
 
         user_dict = {}
         user_dict["user_image"] = [i for i in users_list]
+        user_dict["user_name"] = [i for i in users_list]
         
         user_dict["user_id"] = [i for i in users_list  if type(i) == int]
         print(user_dict)
@@ -282,8 +284,8 @@ def check():
         
             
         new_list = []
-        for i in range(0,len(users_list),2):
-            pair = users_list[i:i + 2] 
+        for i in range(0,len(users_list),3):
+            pair = users_list[i:i + 3] 
             new_list.append(pair) 
 
         for t,k in enumerate(new_list):

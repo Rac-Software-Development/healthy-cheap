@@ -1,17 +1,27 @@
 .textarea2{
   margin-left: auto;
   position: absolute;
-  left: 700px;
-  padding-right: 30px;
-  top: 70px;
+  left: 800px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  top: 90px;
 }
 
 .textarea1{
   margin-left: auto;
   position: absolute;
-  left: 400px;
-  padding-right: 30px;
-  top: 70px;
+  left: 570px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  top: 90px;
+}
+.textarea3{
+  margin-left: auto;
+  position: absolute;
+  left: 350px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  top: 90px;
 }
 
 .h3{
@@ -53,20 +63,26 @@ body {
 .post-button{
   margin: auto;
   position: absolute;
-  right:  100px;
+  right:  80px;
   background-color: #e67c13;
   padding: 15px;
   border: #e67c13;
   border-radius: 25px;
-  top: 70px;
+  top:190px;
+  cursor: pointer;
+  
 }
 
 .react-button{
+  margin: auto;
+  position: absolute;
+  right:  80px;
   background-color: #e67c13;
   padding: 15px;
   border: #e67c13;
   border-radius: 25px;
-  margin-bottom: 20px;
+  top:400px;
+  cursor: pointer;
 }
 
 
@@ -103,6 +119,7 @@ body {
   padding: 10px;
   border-radius: 20px;
   border: #e67c13;
+  cursor: pointer;
 }
 
 

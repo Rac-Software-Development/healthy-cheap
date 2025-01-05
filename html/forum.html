@@ -16,23 +16,26 @@
         <button class="logout-button">logout</button>
     </form>
 
-    <h3 class="h32">prijs</h3>
+    <!-- <h3 class="h32">prijs</h3>
     <form action="/forum"  id="recipeForm" method="post">
         <textarea class="textarea2" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
         <h3 class="h3">recept</h3>
         <textarea class="textarea1" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea>
         
         <button class="post-button" type="submit">Indienen</button>
-    </form>
+    </form> -->
     
     <h2>Recepten</h2>
     <div id="recipes" class="div"></div><br>
 
     <form action="/forum" method="post">
-        <input type="text" name="dish" id="dish">
-        <input type="text" name="ingredients" id="ingredients">
-        <input type="text" name="price" id="price">
-        <button  type="submit">klik</button>
+        <h2 class="textarea2" style="top: 30px;">recept</h2>
+        <textarea class="textarea2" type="text" name="dish" id="dish"></textarea>
+        <h2 class="textarea3" style="top: 30px;" >ingredients</h2>
+        <textarea class="textarea3" type="text" name="ingredients" id="ingredients"></textarea>
+        <h2 class="textarea1" style="top: 30px;">prijs</h2>
+        <textarea type="text" class="textarea1" name="price" id="price"></textarea>
+        <button  type="submit" class="post-button">post je recept</button>
     </form>
 
  
@@ -43,45 +46,20 @@
 <p id="recipeget"></p>
 <div class="divje">
     
-        <li id="divdo"></li>
+        <li id="divdo">welkom </li>
         <br>
      
         
-        <div class="p2" style="display: flex;"><p id="img" ><h4 id="post"></h4></p> </div>
+        <div class="p2" style="display: flex;">
+            <p id="img" ><h4 id="post"></h4></p>
+            <p id="react"></p>
+         </div>
     
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    
     <script lang="Javascript" type="text/javascript">
-        document.getElementById('recipeForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const recipeText = document.getElementById('recipeText').value;
-            
-                const recipeDiv = document.createElement('div');
-                recipeDiv.className = 'recipe';
-                recipeDiv.innerHTML = `<div class="divje">
-    <div><p>{{loginname}}</p></div>
-    <div class="p2"><img src="/static/images/{{filename}}" alt="text" width="70" height="70"></div>
-  <div class="p"><p>${recipeText}</p></div></div><button class="react-button" onclick="addComment(this)">Reageer</button><div ></div> `;
-                document.getElementById('recipes').appendChild(recipeDiv);
-                document.getElementById('recipeText').value = '';
-
-                var recipeget =  document.getElementById('recipeget').appendChild(recipeDiv);
-
-          
-        });
-
-        function addComment(button) {
-            const commentText = prompt('Schrijf je reactie:');
-            if (commentText) {
-                const commentDiv = document.createElement('div');
-                commentDiv.className = "div-react";
-                commentDiv.innerText = commentText;
-                button.nextElementSibling.appendChild(commentDiv);
-            }
-        }
-        
-       
+//         
            
             
             $(document).ready(
@@ -100,12 +78,18 @@
                             
 
                             for (i=0; i< result["post"].length; i++){
+                                $("#img").append("<h5>"+result['post'][i][6]+"</h5>")
                                 $("#img").append(`<div class=p2 style="display: flex;" ><img src='/static/images/${result['post'][i][4]}' alt='text' width='70' height='70' >`+ result["post"][i].slice(1,4) +'</div>');
                                 
+                            
+                                
+                               
                             }
-                            // for (i=0; i< result["post"].length; i++){
-                            // $("#post").append(result["post"][i]+"<br>");
-                            // }
+                            
+                            for (i=0; i< result["post"].length; i++){
+                                $("#react").append(  "<button class= 'react-button'>start</button><br>")
+                                
+                            }
                     },
                    
               
