@@ -84,12 +84,12 @@ class reactions(db.Model):
     __tablename__ = "reactions"
     id = db.Column(db.Integer, primary_key=True )
     reaction = db.Column((db.String(100)), nullable=False)
-    user_id_2= db.Column(db.Integer, db.ForeignKey("users.id"))
+    users_id_2= db.Column(db.Integer, db.ForeignKey("users.id"))
 
     user = db.relationship("users", backref=db.backref("reactions", lazy=True))
 
-    def __init__(self,reaction,user_id_2):
-        self.users_id_2 = user_id_2
+    def __init__(self,reaction,users_id_2):
+        self.users_id_2 = users_id_2
         self.reaction = reaction
     
     def __repr__(self):
@@ -168,15 +168,20 @@ def check_user(username, password):
     return False
 
 
+
+
+
 @app.route("/forum", methods=["GET", "POST"])
 def forum():
    
     price = request.form.get("price")
     ingredients = request.form.get("ingredients")
     dish = request.form.get("dish")
+    
     if 'id' in session:
         if request.method == "POST":
             post_of_user = posts(price=price,ingredients=ingredients,dish=dish,user_id=session['id'])
+            
         
             db.session.add(post_of_user)
             db.session.commit()
@@ -192,6 +197,22 @@ def forum():
     else:
         return redirect("/login")
 
+
+@app.route("/forum_reaction",methods = ["GET","POST"])
+def forum_reaction():
+    reaction = request.form.get("reaction")
+    if 'id' in session:
+        if request.method == "POST":
+            print(session)
+            reaction_on_post = reactions(reaction=reaction,users_id_2=session["id"])
+            
+            db.session.add(reaction_on_post)
+            db.session.commit()
+            return render_template("forum.html",reaction=reaction)
+        else:
+            return render_template("forum.html",reaction=reaction)
+    else:
+        return redirect("/login")
 
 @app.route("/kaart", methods=["GET", "POST"])
 def map():
@@ -217,13 +238,7 @@ def display_image(filename):
        
         return render_template("forum.html", filename =filename)
 
-    
 
-        
-@app.route("/som")
-def som():
-
-    return render_template("something.html")
 
 
 @app.route("/logout", methods = ["POST","GET"])
@@ -234,23 +249,6 @@ def logout():
     
     return redirect("/login")
 
-
-def replace_characters(characters):
-        array_characters = ['[',']','g',"'","/n"]
-        for i in array_characters:
-            characters = characters.replace(i , " ")
-            print(type(characters))
-        return  characters
-
-def give_image_for_post():
-    my_posts = posts.query.all()
-    my_user = users.query.all()
-    for i in my_posts:
-        for g in my_user:
-            if i.users_id == g.id and g.id == session['id']: 
-                file_name = g.img
-                return file_name
-    return file_name
 
 
 @app.route("/check", methods=["POST","GET"])
@@ -321,16 +319,60 @@ def check():
                         
         return {"name":"error"}
     
-@app.route("/info", methods=["GET"])
-def info():
-    
-    return render_template("information.html")
+@app.route("/info/<event_id>", methods=["GET"])
+def info(event_id):
+    posts1 = posts.query.all()
+    event_id = posts1
+    return render_template("information.html",event_id=event_id)
                 
             
-        
+@app.route("/react", methods=["GET"])
+def react():
+    my_reactions = reactions.query.all()
+    all_users = users.query.all()
+
+    users_list = []
+    for g in all_users:
+        users_list.append(str(g.img))
+        users_list.append(int(g.id))
+        users_list.append(str(g.user_name))
+
+
+
+
+    new_list = []
+    for i in range(0,len(users_list),3):
+            pair = users_list[i:i + 3] 
+            new_list.append(pair) 
+
+    react_list = []
+    for i in my_reactions:
+        react_list.append(i.users_id_2)
+        react_list.append(i.reaction)
 
     
+    react2_list = []
+    for i in range(0,len(react_list),2):
+            pair = react_list[i:i + 2] 
+            react2_list.append(pair)
+
+  
+    for i,worth in enumerate(react2_list):
+        for v,d in enumerate(new_list):
+            if d[1] == worth[0]:
+                
+                    l = list(worth) +d
+                    react_list[i]= l
+                    if type(i) != list:
+                        react_list.pop()
+
+    return {"reaction":react_list}
+                        
+
     
+price:int = ["sdfsdf",4,5,6]
+print(type(price))
+
 
 
 if __name__ == "__main__":

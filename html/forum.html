@@ -15,7 +15,9 @@
     <form action="/logout">
         <button class="logout-button">logout</button>
     </form>
-
+    {% for i in event_id%}
+        <a href="/info/{{i.post_id}}">{{i.post_id}}</a>
+    {% endfor %}
     <!-- <h3 class="h32">prijs</h3>
     <form action="/forum"  id="recipeForm" method="post">
         <textarea class="textarea2" id="recipeText" placeholder="Schrijf je recept hier op..." required></textarea><br>
@@ -38,24 +40,31 @@
         <button  type="submit" class="post-button">post je recept</button>
     </form>
 
- 
+    <form action="/forum_reaction" method="post">
+        <input type="text" id="reaction" name="reaction">
+        <button type="submit" style="display: flex;">react</button>
+    </form>
 
     
     
 </div>
 <p id="recipeget"></p>
 <div class="divje">
-    
+        
         <li id="divdo">welkom </li>
         <br>
      
         
         <div class="p2" style="display: flex;">
             <p id="img" ><h4 id="post"></h4></p>
-            <p id="react"></p>
+            
          </div>
+
+        
+        
     
 </div>
+<p id="react2"></p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    
     <script lang="Javascript" type="text/javascript">
@@ -101,7 +110,25 @@
         
 
             
-        }))
+        },
+        $("#react2").append(function () {
+                $.ajax({
+                    url: "http://127.0.0.1:5000/react",
+                    type: "application/json",
+                    method : "GET",
+                    success: function (reaction) {
+                        
+                        for(i=0; i < reaction["reaction"].length; i++){
+                            // $("#react2").append("<h3>"+reaction["reaction"][i][1]+"</h3>");
+                            $("#react2").append(`<div  style="top:20px;" ><img src='/static/images/${reaction['reaction'][i][2]}' alt='text' width='30' height='30' >`+ reaction["reaction"][i][1] +'</div>');
+                           
+                        }
+                        
+                    }})
+                }
+                       
+    ))
+            )
        
     </script>
 

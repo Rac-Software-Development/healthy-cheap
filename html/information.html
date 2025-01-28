@@ -13,7 +13,15 @@
   <div class="div-react">
     <h1>dshfbdsk</h1>
   </div>
-
+  {% for i in event_id%}
+        <!-- <a href="/info/{{i.post_id}}"> -->
+          <td>{{i.post_id}}</td>
+          <br>
+          <td>{{i.price}}</td>
+          <br>
+          <td>{{i.dish}}</td>
+        
+    {% endfor %}
   <script lang="Javascript" type="text/javascript">
 
   
