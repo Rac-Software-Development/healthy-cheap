@@ -87,13 +87,17 @@ class reactions(db.Model):
     users_id_2= db.Column(db.Integer, db.ForeignKey("users.id"))
 
     user = db.relationship("users", backref=db.backref("reactions", lazy=True))
+    posts_id= db.Column(db.Integer, db.ForeignKey("posts.post_id"))
 
-    def __init__(self,reaction,users_id_2):
+    post = db.relationship("posts", backref=db.backref("reactions", lazy=True))
+
+    def __init__(self,reaction,users_id_2,posts_id):
         self.users_id_2 = users_id_2
         self.reaction = reaction
+        self.posts_id = posts_id
     
     def __repr__(self):
-        return f"('{self.users_id_2}', '{self.reaction}')"
+        return f"('{self.users_id_2}', '{self.reaction}',{self.posts_id})"
 
 @app.route("/")
 @app.route("/home")
@@ -286,7 +290,8 @@ def check():
         posts_list = []
         for p in my_posts:
          
-            posts_list.append((p.users_id,p.price,p.dish,p.ingredients))
+            posts_list.append((p.users_id,p.price,p.dish,p.ingredients,p.post_id))
+            
 
  
 
@@ -349,6 +354,7 @@ def react():
     for i in my_reactions:
         react_list.append(i.users_id_2)
         react_list.append(i.reaction)
+        # react_list.append(i.posts_id)
 
     
     react2_list = []

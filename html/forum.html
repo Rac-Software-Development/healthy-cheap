@@ -77,8 +77,8 @@
                             
                             var large = "<form action='/forum_reaction' method='post'><input type='text' id='reaction' name='reaction'><button class= 'react-button' style='display: flex;'>react</button></form>"
                             for (i=0; i< result["post"].length; i++){
-                                $("#img").append("<h5>"+result['post'][i][6]+"</h5>")
-                                $("#img").append(`<div class=div-react style="display: flex;" ><img src='/static/images/${result['post'][i][4]}' alt='text' width='70' height='70' >`+ result["post"][i].slice(1,4) +'</div>');
+                                $("#img").append("<h5>"+result['post'][i][7]+result['post'][i][4]+"</h5>")
+                                $("#img").append(`<div class=div-react style="display: flex;" ><img src='/static/images/${result['post'][i][5]}' alt='text' width='70' height='70' >`+ result["post"][i].slice(1,4) +'</div>');
                                 $("#img").append(large)
                                 
                                
