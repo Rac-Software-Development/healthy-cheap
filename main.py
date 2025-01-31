@@ -208,7 +208,13 @@ def forum_reaction():
     if 'id' in session:
         if request.method == "POST":
             print(session)
-            reaction_on_post = reactions(reaction=reaction,users_id_2=session["id"])
+            my_posts = posts.query.all()
+            react_to_post = []
+            for i in my_posts:
+                print(i.post_id)
+                react_to_post.append(int(i.post_id))
+            print(react_to_post)
+            reaction_on_post = reactions(reaction=reaction,users_id_2=session["id"],posts_id=int(i.post_id))
             
             db.session.add(reaction_on_post)
             db.session.commit()
@@ -220,7 +226,7 @@ def forum_reaction():
 
 @app.route("/kaart", methods=["GET", "POST"])
 def map():
-       
+
         if 'id' in session:
         
 
@@ -257,72 +263,75 @@ def logout():
 
 @app.route("/check", methods=["POST","GET"])
 def check():
+    print(session)
+    if 'id' in session:
+
+        if request.method == "POST":
+            return {"name":"John"}
+        if request.method == "GET":
+            my_posts = posts.query.all()
+            all_users = users.query.all()
+
+            users_list = []
+            for g in all_users:
+                users_list.append(str(g.img))
+                users_list.append(int(g.id))
+                users_list.append(str(g.user_name))
+            
+            
+
+            user_dict = {}
+            user_dict["user_image"] = [i for i in users_list]
+            user_dict["user_name"] = [i for i in users_list]
+            
+            user_dict["user_id"] = [i for i in users_list  if type(i) == int]
+            print(user_dict)
+
+            # for t in user_dict["user_image"]:
+                
+            #         user_dict["üser_image"] = [list(k)+[k] for i in user_dict["user_image"]]
+        
+            new_dict = {}
+            
+
+            posts_list = []
+            for p in my_posts:
+            
+                posts_list.append((p.users_id,p.price,p.dish,p.ingredients,p.post_id))
+                
+
     
 
-    if request.method == "POST":
-        return {"name":"John"}
-    if request.method == "GET":
-        my_posts = posts.query.all()
-        all_users = users.query.all()
-
-        users_list = []
-        for g in all_users:
-            users_list.append(str(g.img))
-            users_list.append(int(g.id))
-            users_list.append(str(g.user_name))
-           
-        
-
-        user_dict = {}
-        user_dict["user_image"] = [i for i in users_list]
-        user_dict["user_name"] = [i for i in users_list]
-        
-        user_dict["user_id"] = [i for i in users_list  if type(i) == int]
-        print(user_dict)
-
-        # for t in user_dict["user_image"]:
+            posts_dict = {}
+            posts_dict["user"]= posts_list[0]
             
-        #         user_dict["üser_image"] = [list(k)+[k] for i in user_dict["user_image"]]
-     
-        new_dict = {}
-        
+                
+            new_list = []
+            for i in range(0,len(users_list),3):
+                pair = users_list[i:i + 3] 
+                new_list.append(pair) 
 
-        posts_list = []
-        for p in my_posts:
-         
-            posts_list.append((p.users_id,p.price,p.dish,p.ingredients,p.post_id))
+            for t,k in enumerate(new_list):
+                
+                
             
-
- 
-
-        posts_dict = {}
-        posts_dict["user"]= posts_list[0]
-        
-            
-        new_list = []
-        for i in range(0,len(users_list),3):
-            pair = users_list[i:i + 3] 
-            new_list.append(pair) 
-
-        for t,k in enumerate(new_list):
-            
-            
-          
-                print(t)
-                for i,worth in enumerate(posts_list):
-                    for v,d in enumerate(new_list):
-                        if d[1] == worth[0]:
+                    print(t)
+                    for i,worth in enumerate(posts_list):
+                        for v,d in enumerate(new_list):
+                            if d[1] == worth[0]:
+                                
+                                    l = list(worth) +d
+                                    posts_list[i]= l
                             
-                                l = list(worth) +d
-                                posts_list[i]= l
-                        
-                            
-                user_post = {"name": session['loginname'],"post": posts_list}
-                                    
+                                
+                    user_post = {"name": session['loginname'],"post": posts_list}
                                         
-                return user_post
-                        
-        return {"name":"error"}
+                                            
+                    return user_post
+                            
+            return {"name":"error"}
+    
+    return redirect("/home")
     
 @app.route("/info/<event_id>", methods=["GET"])
 def info(event_id):
@@ -333,46 +342,48 @@ def info(event_id):
             
 @app.route("/react", methods=["GET"])
 def react():
-    my_reactions = reactions.query.all()
-    all_users = users.query.all()
+    if 'id' in session:
+        my_reactions = reactions.query.all()
+        all_users = users.query.all()
 
-    users_list = []
-    for g in all_users:
-        users_list.append(str(g.img))
-        users_list.append(int(g.id))
-        users_list.append(str(g.user_name))
+        users_list = []
+        for g in all_users:
+            users_list.append(str(g.img))
+            users_list.append(int(g.id))
+            users_list.append(str(g.user_name))
 
 
 
 
-    new_list = []
-    for i in range(0,len(users_list),3):
-            pair = users_list[i:i + 3] 
-            new_list.append(pair) 
+        new_list = []
+        for i in range(0,len(users_list),3):
+                pair = users_list[i:i + 3] 
+                new_list.append(pair) 
 
-    react_list = []
-    for i in my_reactions:
-        react_list.append(i.users_id_2)
-        react_list.append(i.reaction)
-        # react_list.append(i.posts_id)
+        react_list = []
+        for i in my_reactions:
+            react_list.append(i.users_id_2)
+            react_list.append(i.reaction)
+            # react_list.append(i.posts_id)
+
+        
+        react2_list = []
+        for i in range(0,len(react_list),2):
+                pair = react_list[i:i + 2] 
+                react2_list.append(pair)
 
     
-    react2_list = []
-    for i in range(0,len(react_list),2):
-            pair = react_list[i:i + 2] 
-            react2_list.append(pair)
+        for i,worth in enumerate(react2_list):
+            for v,d in enumerate(new_list):
+                if d[1] == worth[0]:
+                    
+                        l = list(worth) +d
+                        react_list[i]= l
+                        if type(i) != list:
+                            react_list.pop()
 
-  
-    for i,worth in enumerate(react2_list):
-        for v,d in enumerate(new_list):
-            if d[1] == worth[0]:
-                
-                    l = list(worth) +d
-                    react_list[i]= l
-                    if type(i) != list:
-                        react_list.pop()
-
-    return {"reaction":react_list}
+        return {"reaction":react_list}
+    return redirect("/home")
                         
 
     
